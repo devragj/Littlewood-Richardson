@@ -116,6 +116,7 @@ class Page {
          */
         static fillPartition() {
                 let partitionString = document.getElementById('partitionBox').value.trim();
+                this.displayText(partitionString);
                 let partition = partitionString.split(",").filter(x => x).map(x => parseInt(x));
                 if (!TableauALR.isPartition(partition)) {
                         alert("Please check your partition.");

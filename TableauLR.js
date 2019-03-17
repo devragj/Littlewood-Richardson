@@ -250,9 +250,6 @@ class TableauLR{
                                                 dominoList.push(domino);
                                                 x -= 2;
                                                 partition[y] -= 2;
-                                                if (partition[y] == 0) {
-                                                        partition.pop();
-                                                }
                                         }
 
                                         if (x == nextXEnd) {
@@ -265,14 +262,7 @@ class TableauLR{
                                                 let domino = new Domino({x: x, y: y, horizontal: false, n: ""});
                                                 dominoList.push(domino);
                                                 partition[y]--;
-                                                if (partition[y] == 0) {
-                                                        partition.pop();
-                                                }
-
                                                 partition[++y]--;
-                                                if (partition[y] == 0) {
-                                                        partition.pop();
-                                                }
 
                                                 nextXEnd = (partition[y + 1] || 0) - 1;
                                                 if (nextXEnd == x - 1) {
@@ -286,7 +276,10 @@ class TableauLR{
 
                                                 y++;
                                         }
+                                }
 
+                                while (partition[partition.length - 1] == 0) {
+                                        partition.pop();
                                 }
                         }
 
@@ -311,9 +304,6 @@ class TableauLR{
                                                 dominoList.push(domino);
                                                 y -= 2;
                                                 transposePartition[x] -= 2;
-                                                if (transposePartition[x] == 0) {
-                                                        transposePartition.pop();
-                                                }
                                         }
 
                                         if (y == nextYEnd) {
@@ -326,14 +316,7 @@ class TableauLR{
                                                 let domino = new Domino({x: x, y: y, horizontal: true, n: ""});
                                                 dominoList.push(domino);
                                                 transposePartition[x]--;
-                                                if (transposePartition[x] == 0) {
-                                                        transposePartition.pop();
-                                                }
-
                                                 transposePartition[++x]--;
-                                                if (transposePartition[x] == 0) {
-                                                        transposePartition.pop();
-                                                }
 
                                                 nextYEnd = (transposePartition[x + 1] || 0) - 1;
                                                 if (nextYEnd == y - 1) {
@@ -347,7 +330,10 @@ class TableauLR{
 
                                                 x++;
                                         }
+                                }
 
+                                while (transposePartition[transposePartition.length - 1] == 0) {
+                                        transposePartition.pop();
                                 }
 
                                 partition = TableauALR.getTransposePartition(transposePartition);
