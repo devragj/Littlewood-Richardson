@@ -7,7 +7,7 @@
                 <link rel="stylesheet" href="TableauA.css">
                 </link>
                 <link rel="stylesheet" href="pageStyles.css" />
-                <title>A to D</title>
+                <title>Fill Partition</title>
                 <script type="text/javascript" src="Tableau.js"></script>
                 <script type="text/javascript" src="TableauA.js"></script>
                 <!-- <script type="text/javascript" src="TableauCycles.js"></script> -->
@@ -15,7 +15,7 @@
                 <script type="text/javascript" src="Page.js"></script>
         </head>
         <body>
-                <h2>A to D
+                <h2>Fill Partition
                         <span class="infoButtons">
                                 <button type="button" class="toggleButton" onclick="Page.toggleDiv(this)">Instructions</button>
                                 <!-- <button type="button" class="toggleButton" onclick="Page.toggleDiv(this)">Information</button> -->
@@ -24,8 +24,8 @@
 
                 <div class="infoDiv" id="InstructionsDiv" style="display:none">
                         <p>
-                                Enter the left and right partitions as comma-separated lists (with or without spaces, no parentheses) into the textboxes.&nbsp;
-                                Then press Enter while in one of the textboxes.&nbsp;
+                                Enter a partitions as a comma-separated list (with or without spaces, no parentheses) into the textbox.&nbsp;
+                                Then press Enter while in the textbox.&nbsp;
                                 (Here a partition is a sequence of non-increasing positive whole numbers.)
                         </p>
                         <p>
@@ -40,8 +40,7 @@
                 </div> -->
 
                 <div id="Controls">
-                        <span>left partition:&nbsp; <input type="text" id="leftABox" size="30" onkeyup="Page.partitionKeyAToD(event)"></span>
-                        <span>right partition:&nbsp; <input type="text" id="rightABox" size="30" onkeyup="Page.partitionKeyAToD(event)"></span>
+                        <span>partition:&nbsp; <input type="text" id="partitionBox" size="30" onkeyup="Page.partitionKeyFill(event)"></span>
                         <span><button type="button" id="clearButton" class="SmallButton" onclick="Page.clearPrevious()">Clear</button></span>
                 </div>
         </body>

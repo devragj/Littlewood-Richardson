@@ -2460,7 +2460,7 @@ class TableauPairGrid extends TableauPair {
                 if (this.tableau.type) {
                         /**
                          * a boolean which is true if tableau is a TableauWithGrid
-                         * @type {Boolean}
+                         * @type {boolean}
                          */
                         this.hasGrid = true;
                         /**

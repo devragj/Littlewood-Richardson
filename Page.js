@@ -44,26 +44,27 @@
  */
 class Page {
         /**
-         * This is the event handler for the keyup event in the partition textboxes.
+         * This is the event handler for the keyup event in the partition textboxes
+         * in the page AToD.html.
          * When the Enter key is pressed, this calls the function
-         * to draw the domino tableau.
+         * to compute and draw the domino tableau.
          * @param  {Object} event - DOM event object
          */
-        static partitionKey(event) {
+        static partitionKeyAToD(event) {
                 event.preventDefault();
                 if (event.keyCode == 13) {
-                        this.drawTableau();
+                        this.getTableaux();
                 }
         }
 
         /**
-         * This function obtains the user input.
-         * Then it obtains the two TableauA, based on the user input, and draws them.
+         * This function obtains the user input for the page AToD.html.
+         * Then it obtains the two TableauA, based on the user input.
          * If the input is not valid, the user is notified with an alert, and the function returns.
          * Otherwise, the function draws the A tableaux.
          * Then it computes the D tableau, and draws it.
          */
-        static drawTableau() {
+        static getTableaux() {
                 let leftA;
                 let rightA;
                 let leftPartitionString = document.getElementById('leftABox').value.trim();
@@ -86,7 +87,67 @@ class Page {
                 tableauAPair.draw();
 
                 let tableau = TableauLR.getTableau(leftA, rightA);
-                document.body.appendChild(new TableauRendererDOM({tableau: tableau}).renderDOM(true));
+                this.addTableauToPage(tableau);
+        }
+
+        /**
+         * This is the event handler for the keyup event in the partition textbox
+         * in the page FillPartition.html.
+         * When the Enter key is pressed, this calls the function
+         * to fill and draw the domino tableau coming from the entered partition.
+         * @param  {Object} event - DOM event object
+         */
+        static partitionKeyFill(event) {
+                event.preventDefault();
+                if (event.keyCode == 13) {
+                        this.fillPartition();
+                }
+        }
+
+        /**
+         * This function obtains the user input for the page FillPartition.html.
+         * It checks that the input is a valid partition.
+         * If the input is not valid, the user is notified with an alert, and the function returns.
+         * Otherwise, the function computes the domino tableau associated to the partition,
+         * by calling the function {@link TableauLR#fillPartition}.
+         * If the partition does not correspond to the shape of a domino tableau,
+         * the user is notified with a message on the page.
+         * Otherwise, the tableau os drawn on the page.
+         */
+        static fillPartition() {
+                let partitionString = document.getElementById('partitionBox').value.trim();
+                try {
+                        TableauALR.getTableauALRFromString(partitionString);
+                } catch (e) {
+                        alert("Please check your partition.");
+                        return;
+                }
+
+                let tableau;
+                try {
+                        let partition = partitionString.split(",").filter(x => x).map(x => parseInt(x));
+                        tableau = TableauLR.fillPartition(partition);
+                }
+
+                catch(e) {
+                        let output = partitionString + " is not the partition of a domino tableau.";
+                        this.displayText(output);
+                        return;
+                }
+
+                this.addTableauToPage(tableau);
+        }
+
+        /**
+         * This function wraps the tableau to draw on the page in a div
+         * so that it can be styled, or otherwise manipulated.
+         * @param {Tableau} tableau
+         */
+        static addTableauToPage(tableau) {
+                let wrapper = document.createElement('div');
+                wrapper.className = "tableauLR";
+                TableauLR.addTableauToWrapper(tableau, wrapper);
+                document.body.appendChild(wrapper);
         }
 
         /**
@@ -119,7 +180,7 @@ class Page {
          * This function removes all output from the page.
          */
         static clearPrevious() {
-                let clearList = ["tableauARender", "tableauRender"];
+                let clearList = ["tableauARender", "tableauLR", "comment"];
                 clearList.forEach((type) => Page.clearItems(type));
         }
 
