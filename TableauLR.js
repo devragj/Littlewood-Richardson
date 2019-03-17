@@ -251,7 +251,7 @@ class TableauLR{
                                                 x -= 2;
                                                 partition[y] -= 2;
                                                 if (partition[y] == 0) {
-                                                        transposePartition.pop();
+                                                        partition.pop();
                                                 }
                                         }
 
@@ -266,14 +266,14 @@ class TableauLR{
                                                 dominoList.push(domino);
                                                 partition[y]--;
                                                 if (partition[y] == 0) {
-                                                        transposePartition.pop();
+                                                        partition.pop();
                                                 }
 
                                                 partition[++y]--;
                                                 if (partition[y] == 0) {
-                                                        transposePartition.pop();
+                                                        partition.pop();
                                                 }
-                                                
+
                                                 nextXEnd = (partition[y + 1] || 0) - 1;
                                                 if (nextXEnd == x - 1) {
                                                         break outerLoop;
