@@ -116,16 +116,14 @@ class Page {
          */
         static fillPartition() {
                 let partitionString = document.getElementById('partitionBox').value.trim();
-                try {
-                        TableauALR.getTableauALRFromString(partitionString);
-                } catch (e) {
+                let partition = partitionString.split(",").filter(x => x).map(x => parseInt(x));
+                if (!TableauALR.isPartition(partition)) {
                         alert("Please check your partition.");
                         return;
                 }
 
                 let tableau;
                 try {
-                        let partition = partitionString.split(",").filter(x => x).map(x => parseInt(x));
                         tableau = TableauLR.fillPartition(partition);
                 }
 

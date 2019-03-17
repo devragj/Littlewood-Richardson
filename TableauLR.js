@@ -108,7 +108,6 @@ class TableauLR{
          * The drawing of the grid includes shading of the fixed squares.
          * @param  {TableauWithGrid} tableau
          */
-         */
         static addTableauToWrapper(tableau, wrapper){
                 wrapper.appendChild(new TableauRendererDOM({tableau: tableau}).renderDOM(true));
         }
@@ -349,6 +348,32 @@ class TableauLR{
 
 class TableauALR{
         /**
+         * This checks that an input array of numbers,
+         * with possibly some NaNs,
+         * in fact contains no NaNs,
+         * and consists of non-increasing numbers.
+         * @param  {array} - numberArray 
+         * @return {boolean}
+         */
+        static isPartition(numberArray) {
+                let currentNumber = numberArray[0];
+                if (isNaN(currentNumber)) {
+                        return false;
+                }
+
+                for (let index = 1; index < numberArray.length; ++index) {
+                        let nextNumber = numberArray[index];
+                        if (isNaN(nextNumber) || nextNumber > currentNumber) {
+                                return false;
+                        }
+
+                        currentNumber = nextNumber;
+                }
+
+                return true;
+        }
+
+        /**
          * This function parses a string representing a partition
          * and then calls {@link TableauALR#makeTableauALR}.
          * @param  {string} partitionString - a string representing a partition
@@ -364,8 +389,13 @@ class TableauALR{
          * as a TableauA with blank tiles.
          * @param  {number[]} partition - A non-increasing array of positive whole numbers
          * @return {TableauA}
+         * @throws {Error} if the partition input is not valid
          */
         static makeTableauALR(partition) {
+                if (!this.isPartition(partition)) {
+                        throw new Error("Input is not a valid partition");
+                }
+
                 let answer = new TableauA();
                 for (let y = 0; y < partition.length; y++) {
                         let rowLength = partition[y];
