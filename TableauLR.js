@@ -250,6 +250,9 @@ class TableauLR{
                                                 dominoList.push(domino);
                                                 x -= 2;
                                                 partition[y] -= 2;
+                                                if (partition[y] == 0) {
+                                                        transposePartition.pop();
+                                                }
                                         }
 
                                         if (x == nextXEnd) {
@@ -262,7 +265,15 @@ class TableauLR{
                                                 let domino = new Domino({x: x, y: y, horizontal: false, n: ""});
                                                 dominoList.push(domino);
                                                 partition[y]--;
+                                                if (partition[y] == 0) {
+                                                        transposePartition.pop();
+                                                }
+
                                                 partition[++y]--;
+                                                if (partition[y] == 0) {
+                                                        transposePartition.pop();
+                                                }
+                                                
                                                 nextXEnd = (partition[y + 1] || 0) - 1;
                                                 if (nextXEnd == x - 1) {
                                                         break outerLoop;
@@ -300,6 +311,9 @@ class TableauLR{
                                                 dominoList.push(domino);
                                                 y -= 2;
                                                 transposePartition[x] -= 2;
+                                                if (transposePartition[x] == 0) {
+                                                        transposePartition.pop();
+                                                }
                                         }
 
                                         if (y == nextYEnd) {
@@ -312,7 +326,15 @@ class TableauLR{
                                                 let domino = new Domino({x: x, y: y, horizontal: true, n: ""});
                                                 dominoList.push(domino);
                                                 transposePartition[x]--;
+                                                if (transposePartition[x] == 0) {
+                                                        transposePartition.pop();
+                                                }
+
                                                 transposePartition[++x]--;
+                                                if (transposePartition[x] == 0) {
+                                                        transposePartition.pop();
+                                                }
+
                                                 nextYEnd = (transposePartition[x + 1] || 0) - 1;
                                                 if (nextYEnd == y - 1) {
                                                         break outerLoop2;
@@ -351,7 +373,7 @@ class TableauALR{
          * This checks that an input array of numbers,
          * with possibly some NaNs,
          * in fact contains no NaNs,
-         * and consists of non-increasing numbers.
+         * and consists of non-increasing positive numbers.
          * @param  {array} - numberArray
          * @return {boolean}
          */
