@@ -352,18 +352,22 @@ class TableauALR{
          * with possibly some NaNs,
          * in fact contains no NaNs,
          * and consists of non-increasing numbers.
-         * @param  {array} - numberArray 
+         * @param  {array} - numberArray
          * @return {boolean}
          */
         static isPartition(numberArray) {
+                if (numberArray.length == 0) {
+                        return true;
+                }
+
                 let currentNumber = numberArray[0];
-                if (isNaN(currentNumber)) {
+                if (isNaN(currentNumber) || currentNumber <= 0) {
                         return false;
                 }
 
                 for (let index = 1; index < numberArray.length; ++index) {
                         let nextNumber = numberArray[index];
-                        if (isNaN(nextNumber) || nextNumber > currentNumber) {
+                        if (isNaN(nextNumber) || nextNumber <= 0 || nextNumber > currentNumber) {
                                 return false;
                         }
 
