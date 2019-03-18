@@ -87,7 +87,7 @@ class Page {
                 tableauAPair.draw();
 
                 let tableau = TableauLR.getTableau(leftA, rightA);
-                this.addTableauToPage(tableau);
+                this.addTableauToPage(tableau, "tableauLR");
         }
 
         /**
@@ -134,7 +134,32 @@ class Page {
                         return;
                 }
 
-                this.addTableauToPage(tableau);
+                this.addTableauToPage(tableau, "tableauLR");
+        }
+
+        /**
+         * This is the event handler for the keyup event in the output textareas
+         * in the page LRCalculator.html.
+         * When the Enter key is pressed, this calls the function
+         * to process the output.
+         * @param  {Object} event - DOM event object
+         */
+        static LROutputKey(event) {
+                event.preventDefault();
+                if (event.keyCode == 13) {
+                        this.showLRTableaux();
+                }
+        }
+
+        static showLRTableaux() {
+                let leftOutputString = document.getElementById('leftOutputArea').value.trim();
+                let rightOutputString = document.getElementById('rightOutputArea').value.trim();
+                let tableauxInfo = TableauALR.combineLR(leftOutputString, rightOutputString);
+                for (let info of tableauxInfo) {
+                        for (let count = 0; count < info.coefficient; count++) {
+                                this.addTableauToPage(info.tableau, "floatingTableauLR")
+                        }
+                }
         }
 
         /**
@@ -142,9 +167,9 @@ class Page {
          * so that it can be styled, or otherwise manipulated.
          * @param {Tableau} tableau
          */
-        static addTableauToPage(tableau) {
+        static addTableauToPage(tableau, className) {
                 let wrapper = document.createElement('div');
-                wrapper.className = "tableauLR";
+                wrapper.className = className;
                 TableauLR.addTableauToWrapper(tableau, wrapper);
                 document.body.appendChild(wrapper);
         }

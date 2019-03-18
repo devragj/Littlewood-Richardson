@@ -2,11 +2,51 @@
 <html lang="en" dir="ltr">
         <head>
                 <meta charset="utf-8">
-                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-                <script src="Request.js"></script>
+                <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+                <script src="Request.js"></script> -->
+                <link rel="stylesheet" href="Tableau.css">
+                </link>
+                <link rel="stylesheet" href="TableauA.css">
+                </link>
+                <link rel="stylesheet" href="pageStyles.css" />
                 <title>Littlewood-Richardson Calculator</title>
+                <script type="text/javascript" src="Tableau.js"></script>
+                <script type="text/javascript" src="TableauA.js"></script>
+                <!-- <script type="text/javascript" src="TableauCycles.js"></script> -->
+                <script type="text/javascript" src="TableauLR.js"></script>
+                <script type="text/javascript" src="Page.js"></script>
         </head>
         <body>
+                <h2>Littlewood-Richardson Calculator
+                        <span class="infoButtons">
+                                <button type="button" class="toggleButton" onclick="Page.toggleDiv(this)">Instructions</button>
+                                <!-- <button type="button" class="toggleButton" onclick="Page.toggleDiv(this)">Information</button> -->
+                        </span>
+                </h2>
 
+                <div class="infoDiv" id="InstructionsDiv" style="display:none">
+                        <p>
+                                This page assumes that you have output from two Littlewood-Richardson calculations which you want combined into domino tableaux.&nbsp;
+                                The Littlewood-Richardson output must be obtained from this page <a href="http://young.sp2mi.univ-poitiers.fr/cgi-bin/form-prep/marc/LiE_form.act?action=LRR">http://young.sp2mi.univ-poitiers.fr/cgi-bin/form-prep/marc/LiE_form.act?action=LRR</a>.&nbsp;
+                                Just copy the output from there to paste into these textareas.
+                        </p>
+                        <p>
+                                Enter the left and right Littlewood-Richardson outputs into the textareas.&nbsp;
+                                Then press Enter while in one of the textareas.
+                        </p>
+                        <p>
+                                Pressing Enter again will clear the previous results from the page before displaying new results.
+                        </p>
+
+                </div>
+
+                <!-- <div class="infoDiv" id="InformationDiv" style="display:none">
+
+                </div> -->
+
+                <div id="Controls">
+                        <span>left output:&nbsp; <textarea id="leftOutputArea" rows="3" cols="50" onkeyup="Page.LROutputKey(event)"></textarea></span>
+                        <span>right output:&nbsp; <textarea id="rightOutputArea" rows="3" cols="50" onkeyup="Page.LROutputKey(event)"></textarea></span>
+                </div>
         </body>
 </html>

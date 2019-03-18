@@ -119,8 +119,9 @@ class TableauLR{
          * @param  {number[]} partition   [description]
          * @param  {boolean} unboxedOnly - if true, only filled corneres
          * and empty holes are returned.
-         * @return {Object[]} An array of squares given by their
-         * x and y corrdinates and a two-letter descriptor,
+         * @return {Object[]} An array of {x: number, y: number, type: string}
+         * that is, squares given by their
+         * x and y coordinates, and a two-letter descriptor,
          * such as "FC" for a filled corner.
          */
         static getCornersAndHoles(partition, unboxedOnly) {
@@ -466,6 +467,12 @@ class TableauALR{
                 return TableauALR.getColumnPartition(tableauA);
         }
 
+        /**
+         * This is a helper function for {@link TableauALR#parseLROutput}
+         * It parses one piece of the output.
+         * @param  {string} piece
+         * @return {object} {coefficient: number, partition: number[]}
+         */
         static parseLRPiece(piece) {
                 let info = piece.split("X");
                 let coefficient = parseInt(info[0]);
@@ -474,11 +481,26 @@ class TableauALR{
                 return {coefficient, partition};
         }
 
+        /**
+         * This function parses output from the page
+         * http://young.sp2mi.univ-poitiers.fr/cgi-bin/form-prep/marc/LiE_form.act?action=LRR,
+         * using a regex to extract the relevant information.
+         * @param  {string} output
+         * @return {string[]}
+         */
         static parseLROutput(output) {
                 let matches = output.match(/\d+X\[[^+]*\]/g);
                 return matches.map(piece => this.parseLRPiece(piece));
         }
 
+        /**
+         * This processes two outputs from a Littlewood-Richardson
+         * calculation.
+         * The result is a list of domino tableaux with multiplicities
+         * @param  {string} leftOutput
+         * @param  {string} rightOutput
+         * @return {Object[]} array of {coefficient: number, tableau: TableauWithGrid}
+         */
         static combineLR(leftOutput, rightOutput) {
                 let answer = [];
                 let leftMultiPartitions = this.parseLROutput(leftOutput);
