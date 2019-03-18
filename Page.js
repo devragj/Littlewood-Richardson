@@ -112,7 +112,7 @@ class Page {
          * by calling the function {@link TableauLR#fillPartition}.
          * If the partition does not correspond to the shape of a domino tableau,
          * the user is notified with a message on the page.
-         * Otherwise, the tableau os drawn on the page.
+         * Otherwise, the tableau is drawn on the page.
          */
         static fillPartition() {
                 let partitionString = document.getElementById('partitionBox').value.trim();
@@ -151,7 +151,14 @@ class Page {
                 }
         }
 
+        /**
+         * This function obtains the user input for the page LRCalculator.html.
+         * It then calls the function {@link TableauLR#combineLR} using that input.
+         * The resulting tableaux are then drawn on the page.
+         * (Previous output is cleared from the page first.)
+         */
         static showLRTableaux() {
+                this.clearPrevious();
                 let leftOutputString = document.getElementById('leftOutputArea').value.trim();
                 let rightOutputString = document.getElementById('rightOutputArea').value.trim();
                 let tableauxInfo = TableauALR.combineLR(leftOutputString, rightOutputString);
@@ -204,7 +211,7 @@ class Page {
          * This function removes all output from the page.
          */
         static clearPrevious() {
-                let clearList = ["tableauARender", "tableauLR", "comment"];
+                let clearList = ["tableauARender", "tableauLR", "comment", "floatingTableauLR"];
                 clearList.forEach((type) => Page.clearItems(type));
         }
 
