@@ -1,6 +1,9 @@
 $.ajax({
   url: "http://young.sp2mi.univ-poitiers.fr/cgi-bin/form-prep/marc/LRR.act",
-  type: "get", //send it through get method
+  type: "get",
+  xhrFields: {
+      withCredentials: true
+  },
   data: {
     x1: 3,
     x2: 2,
