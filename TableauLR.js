@@ -465,4 +465,34 @@ class TableauALR{
                 let tableauA = TableauALR.makeTableauALR(partition);
                 return TableauALR.getColumnPartition(tableauA);
         }
+
+        static parseLRPiece(piece) {
+                let info = piece.split("X");
+                let coefficient = parseInt(info[0]);
+                let partition = info[1].slice(1, -1).split(",").map(x => parseInt(x)).filter(x => x);
+
+                return {coefficient, partition};
+        }
+
+        static parseLROutput(output) {
+                let matches = output.match(/\d+X\[[^+]*\]/g);
+                return matches.map(piece => this.parseLRPiece(piece));
+        }
+
+        static combineLR(leftOutput, rightOutput) {
+                let answer = [];
+                let leftMultiPartitions = this.parseLROutput(leftOutput);
+                let rightMultiPartitions = this.parseLROutput(rightOutput);
+                for (let leftMP of leftMultiPartitions) {
+                        for (let rightMP of rightMultiPartitions) {
+                                let leftA = this.makeTableauALR(leftMP.partition);
+                                let rightA = this.makeTableauALR(rightMP.partition);
+                                let tableau = TableauLR.getTableau(leftA, rightA);
+                                let coefficient = leftMP.coefficient * rightMP.coefficient;
+                                answer.push({coefficient, tableau});
+                        }
+                }
+
+                return answer;
+        }
 }
