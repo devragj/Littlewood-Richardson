@@ -152,6 +152,20 @@ class Page {
         }
 
         /**
+         * This function displays the information entered into the comment box.
+         */
+        static displayComment() {
+                let wrapper = document.createElement('div');
+                wrapper.className = "comment";
+                let commentSpan = document.createElement('span');
+                commentSpan.style.marginLeft = "10px";
+                let comment = document.getElementById("commentBox").value.trim();
+                commentSpan.innerHTML= comment;
+                wrapper.appendChild(commentSpan);
+                document.body.appendChild(wrapper);
+        }
+
+        /**
          * This function obtains the user input for the page LRCalculator.html.
          * It then calls the function {@link TableauLR#combineLR} using that input.
          * The resulting tableaux are then drawn on the page.
@@ -159,6 +173,7 @@ class Page {
          */
         static showLRTableaux() {
                 this.clearPrevious();
+                this.displayComment();
                 let leftOutputString = document.getElementById('leftOutputArea').value.trim();
                 let rightOutputString = document.getElementById('rightOutputArea').value.trim();
                 let tableauxInfo = TableauALR.combineLR(leftOutputString, rightOutputString);
