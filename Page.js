@@ -58,13 +58,30 @@ class Page {
         }
 
         /**
+         * This is the event handler for the keyup event in the partition textboxes
+         * in the page AToC.html.
+         * When the Enter key is pressed, this calls the function
+         * to compute and draw the domino tableau.
+         * @param  {Object} event - DOM event object
+         */
+        static partitionKeyAToC(event) {
+                event.preventDefault();
+                if (event.keyCode == 13) {
+                        this.getTableaux("C");
+                }
+        }
+
+        /**
          * This function obtains the user input for the page AToD.html.
          * Then it obtains the two TableauA, based on the user input.
          * If the input is not valid, the user is notified with an alert, and the function returns.
          * Otherwise, the function draws the A tableaux.
-         * Then it computes the D tableau, and draws it.
+         * The function then computes the D tableau.
+         * By default, the function then draws the tableau with the D grid.
+         * @param  {string} [type] - if present and equal to "C", the tableau is drawn
+         * with the C grid.
          */
-        static getTableaux() {
+        static getTableaux(type) {
                 let leftA;
                 let rightA;
                 let leftPartitionString = document.getElementById('leftABox').value.trim();
@@ -87,6 +104,10 @@ class Page {
                 tableauAPair.draw();
 
                 let tableau = TableauLR.getTableau(leftA, rightA);
+                if (type == "C") {
+                        tableau = new TableauWithGrid({tableau: tableau, type: "C"})
+                }
+
                 this.addTableauToPage(tableau, "tableauLR");
         }
 

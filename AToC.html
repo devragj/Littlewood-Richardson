@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+        <head>
+                <meta charset="utf-8" />
+                <link rel="stylesheet" href="Tableau.css">
+                </link>
+                <link rel="stylesheet" href="TableauA.css">
+                </link>
+                <link rel="stylesheet" href="pageStyles.css" />
+                <title>A to C</title>
+                <script type="text/javascript" src="Tableau.js"></script>
+                <script type="text/javascript" src="TableauA.js"></script>
+                <!-- <script type="text/javascript" src="TableauCycles.js"></script> -->
+                <script type="text/javascript" src="TableauLR.js"></script>
+                <script type="text/javascript" src="Page.js"></script>
+        </head>
+        <body>
+                <h2>A to C
+                        <span class="infoButtons">
+                                <button type="button" class="toggleButton" onclick="Page.toggleDiv(this)">Instructions</button>
+                                <!-- <button type="button" class="toggleButton" onclick="Page.toggleDiv(this)">Information</button> -->
+                        </span>
+                </h2>
+
+                <div class="infoDiv" id="InstructionsDiv" style="display:none">
+                        <p>
+                                Enter the left and right partitions as comma-separated lists (with or without spaces, no parentheses) into the textboxes.&nbsp;
+                                Then press Enter while in one of the textboxes.&nbsp;
+                                (Here a partition is a sequence of non-increasing positive whole numbers.)
+                        </p>
+                        <p>
+                                Newer results are added at the bottom.&nbsp;
+                                The Clear button removes all output from the page.
+                        </p>
+
+                </div>
+
+                <!-- <div class="infoDiv" id="InformationDiv" style="display:none">
+
+                </div> -->
+
+                <div id="Controls">
+                        <span>left partition:&nbsp; <input type="text" id="leftABox" size="30" onkeyup="Page.partitionKeyAToC(event)"></span>
+                        <span>right partition:&nbsp; <input type="text" id="rightABox" size="30" onkeyup="Page.partitionKeyAToC(event)"></span>
+                        <span><button type="button" id="clearButton" class="SmallButton" onclick="Page.clearPrevious()">Clear</button></span>
+                </div>
+        </body>
+</html>
