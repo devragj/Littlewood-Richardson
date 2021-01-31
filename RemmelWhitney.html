@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+        <head>
+                <meta charset="utf-8" />
+                <link rel="stylesheet" href="TableauA.css">
+                </link>
+                <link rel="stylesheet" href="pageStyles.css" />
+                <title>Remmel Whitney</title>
+                <script type="text/javascript" src="Utilities.js"></script>
+                <script type="text/javascript" src="TableauA.js"></script>
+                <script type="text/javascript" src="RemmelWhitney.js"></script>
+                <script type="text/javascript" src="Page.js"></script>
+        </head>
+        <body>
+                <h2>Remmel Whitney
+                        <span class="infoButtons">
+                                <button type="button" class="toggleButton" onclick="Page.toggleDiv(this)">Instructions</button>
+                                <!-- <button type="button" class="toggleButton" onclick="Page.toggleDiv(this)">Information</button> -->
+                        </span>
+                </h2>
+
+                <div class="infoDiv" id="InstructionsDiv" style="display:none">
+                        <p>
+                                Enter the left and right partitions as comma-separated lists (with or without spaces, no parentheses) into the textboxes.&nbsp;
+                                Then press Enter while in one of the textboxes.&nbsp;
+                                (Here a partition is a sequence of non-increasing positive whole numbers.)
+                        </p>
+                        <p>
+                                Pressing Enter again will clear the previous results from the page before displaying new results.
+                        </p>
+
+                </div>
+
+                <!-- <div class="infoDiv" id="InformationDiv" style="display:none">
+
+                </div> -->
+
+                <div id="Controls">
+                        <span>left partition:&nbsp; <input type="text" id="leftABox" size="30" onkeyup="Page.partitionKeyRemmelWhitney(event)"></span>
+                        <span>right partition:&nbsp; <input type="text" id="rightABox" size="30" onkeyup="Page.partitionKeyRemmelWhitney(event)"></span>
+                </div>
+        </body>
+</html>

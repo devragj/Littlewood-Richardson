@@ -45,6 +45,21 @@
 class Page {
         /**
          * This is the event handler for the keyup event in the partition textboxes
+         * in the page RemmelWhitney.html.
+         * When the Enter key is pressed, this calls the function
+         * to compute and draw the output tableau.
+         * @param  {Object} event - DOM event object
+         */
+        static partitionKeyRemmelWhitney(event) {
+                event.preventDefault();
+                if (event.keyCode == 13) {
+                        this.getRemmelWhitneyTableaux();
+                }
+        }
+
+        
+        /**
+         * This is the event handler for the keyup event in the partition textboxes
          * in the page AToD.html.
          * When the Enter key is pressed, this calls the function
          * to compute and draw the domino tableau.
@@ -68,6 +83,37 @@ class Page {
                 event.preventDefault();
                 if (event.keyCode == 13) {
                         this.getTableaux("C");
+                }
+        }
+
+        /**
+         * This function obtains the user input for the page RemmelWhitney.html.
+         * If the input is not valid, the user is notified with an alert, and the function returns.
+         * Otherwise, it obtains the output tableaux from the Remmel-Whitney procedure
+         * and draws the tableaux on the page.
+         */
+        static getRemmelWhitneyTableaux() {
+                this.clearPrevious();
+                const firstPartitionString = document.getElementById('leftABox').value.trim();
+                const secondPartitionString = document.getElementById('rightABox').value.trim();
+                const firstPartition = Utilities.getPartitionFromString(firstPartitionString);
+                if (!firstPartition)  {
+                        alert("Please check your first partition.");
+                        return;
+                }
+
+                const secondPartition = Utilities.getPartitionFromString(secondPartitionString);
+                if (!secondPartition)  {
+                        alert("Please check your second partition.");
+                        return;
+                }
+
+                const renderedTableaux = TreeNode.getRenderedRemmelWhitneyTableaux (firstPartition, secondPartition);
+                const container = document.createElement('div');
+                container.className = "container";
+                document.body.appendChild(container);
+                for (const tableau of renderedTableaux) {
+                        container.appendChild(tableau);
                 }
         }
 
@@ -247,7 +293,7 @@ class Page {
          * This function removes all output from the page.
          */
         static clearPrevious() {
-                let clearList = ["tableauARender", "tableauLR", "comment", "floatingTableauLR"];
+                let clearList = ["tableauARender", "tableauLR", "comment", "floatingTableauLR", "floatingDiv"];
                 clearList.forEach((type) => Page.clearItems(type));
         }
 

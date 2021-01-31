@@ -36,3 +36,12 @@ button:hover{
 .toggleButton {
         margin: 0px 20px;
 }
+
+.floatingDiv {
+        float: left;
+}
+
+.container {
+        display: flex;
+        flex-flow: row wrap
+}
